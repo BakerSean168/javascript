@@ -1,0 +1,74 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+ipv6: false
+
+# 你的 JS 会覆盖这里的列表，初始可以留空
+proxies: []
+
+proxy-groups:
+  - name: "🚀 Proxy"
+    type: select
+    proxies:
+      - "♻️ Auto"
+      - "🇺🇲 US"
+      - DIRECT
+
+  - name: "♻️ Auto"
+    type: url-test
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 100
+    proxies: []
+
+  - name: "🌍 Global"
+    type: select
+    proxies:
+      - "🚀 Proxy"
+      - DIRECT
+
+  - name: "🇺🇲 US"
+    type: load-balance
+    strategy: round-robin
+    interval: 300
+    proxies: []
+
+rules:
+  - GEOIP,CN,DIRECT
+  - GEOIP,LAN,DIRECT
+  - RULE-SET,cn-domain,DIRECT
+  - RULE-SET,google,🚀 Proxy
+  - RULE-SET,github,🚀 Proxy
+  - RULE-SET,ai,🚀 Proxy
+  - MATCH,🌍 Global
+
+rule-providers:
+  cn-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/cn.txt
+    path: ./ruleset/cn.yaml
+    interval: 86400
+
+  google:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/google.txt
+    path: ./ruleset/google.yaml
+    interval: 86400
+
+  github:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/github.txt
+    path: ./ruleset/github.yaml
+    interval: 86400
+
+  ai:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/ai.txt
+    path: ./ruleset/ai.yaml
+    interval: 86400

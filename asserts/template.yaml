@@ -1,0 +1,31 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: Rule
+log-level: info
+
+proxies:
+  - name: "REPLACE_ME"
+    type: vmess
+    server: example.com
+    port: 443
+    uuid: ""
+    alterId: 0
+    cipher: auto
+    tls: true
+    skip-cert-verify: false
+    servername: example.com
+    network: h2
+    h2-opts:
+      host:
+        - example.com
+      path: /
+
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - "REPLACE_ME"
+
+rules:
+  - MATCH,Proxy

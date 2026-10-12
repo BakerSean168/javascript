@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>基线练习（Baseline Debug）</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .demo-row { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1rem; }
+    .demo-item { padding: .5rem 1rem; border: 1px solid #ccc; border-radius: 6px; background: #fff; }
+    .demo-item.inlineflex { display: inline-flex; align-items: center; }
+    .demo-item.inlineblock { display: inline-block; }
+    .price { font-size: 28px; font-weight: bold; color: #c22; }
+    .currency { font-size: 14px; color: #666; vertical-align: baseline; }
+    .baseline-guide { border-top: 1px dashed #999; margin-top: 8px; }
+    .font-trace { font-family: "Arial", "Noto Sans SC", "PingFang SC", sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <aside id="sidebar">
+        <ul>
+          <li><a href="index.html">返回首页</a></li>
+          <li><a href="animation.html">Animation</a></li>
+          <li><a href="layout.html">Layout</a></li>
+          <li><a href="baseline.html">Baseline Demo</a></li>
+        </ul>
+      </aside>
+      <main id="main-content">
+        <h1>基线练习</h1>
+        <p>特殊字体会导致基线不同，通常通过统一 <code>font-size</code> / <code>line-height</code> / <code>vertical-align</code> 解决。</p>
+
+        <section>
+          <h2>1. 字体度量差异对比</h2>
+          <div class="demo-row">
+            <span class="demo-item font-trace" style="font-size:24px; line-height:1.2;">默认行内文本 (Noto/Arial)</span>
+            <span class="demo-item" style="font-family:'Courier New', monospace; font-size:24px; line-height:1.2;">等宽字体</span>
+            <span class="demo-item" style="font-family:'KaiTi', serif; font-size:24px; line-height:1.2;">楷体</span>
+          </div>
+          <small>你会看到不同字体即使相同字号，基线/高度可能不同。</small>
+        </section>
+
+        <section>
+          <h2>2. 图标/文字同排</h2>
+          <div class="demo-row">
+            <span class="demo-item inlineblock" style="vertical-align:baseline;"><span style="font-size:18px;">🛠</span> 默认 inline-block</span>
+            <span class="demo-item inlineflex"><span style="font-size:18px;">🛠</span> inline-flex + align-items:center</span>
+            <span class="demo-item inlineflex" style="align-items:flex-end;"><span style="font-size:18px;">🛠</span> inline-flex + flex-end</span>
+          </div>
+          <p>明确设置 <code>display</code> 和 <code>vertical-align</code> 能避免基线错位。</p>
+        </section>
+
+        <section>
+          <h2>3. 电商价格排版（￥ 1090.8）</h2>
+          <div class="test-row">
+            <span class="" style="font-weight: 300; font-size: 18px;">￥</span>
+            <span class="" style="font-weight: 700; font-size: 28px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">1090.8</span>
+            <span class="" style="font-size: 14px;">元</span>
+          </div>
+          <div class="demo-row">
+            <span class="price" style="font-weight: 300; font-size: 18px;">￥</span>
+            <span class="price-number" style="font-weight: 700; font-size: 28px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">1090.8</span>
+            <span class="currency" style="font-size: 14px;">元</span>
+          </div>
+          <div class="demo-row">
+            <span class="price" style="line-height:1;">￥</span>
+            <span class="price-number" style="line-height:1;">1090.8</span>
+            <span class="currency" style="line-height:1;">元</span>
+          </div>
+          <p>常用做法：让符号、整数、单位为随行元素，行高统一、上下居中。</p>
+        </section>
+
+        <section>
+          <h2>4. 推荐修复方式</h2>
+          <ul>
+            <li>设置统一 `font-size`、`line-height`（尽量使用数值，例如 1.2）</li>
+            <li>对于图标/按钮使用 `display:inline-flex; align-items:center;`</li>
+            <li>必要时 `vertical-align: middle | text-bottom | baseline` 显式指定对齐</li>
+            <li>使用开发者工具观察基线镜像（line box）</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

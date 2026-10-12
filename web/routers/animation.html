@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>动画页面</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:linear-gradient(135deg,#e0f7ff,#fff)}
+    .stage{position:relative;width:300px;height:300px}
+    .ball{width:60px;height:60px;border-radius:50%;background:#ff6b6b;position:absolute;left:50%;transform:translateX(-50%);animation:bounce 1s ease-in-out infinite}
+    @keyframes bounce{
+      0%{top:0; transform:translateX(-50%) scaleY(1)}
+      50%{top:220px; transform:translateX(-50%) scaleY(0.9)}
+      100%{top:0; transform:translateX(-50%) scaleY(1)}
+    }
+    .back{position:fixed;top:1rem;left:1rem}
+    .back a{background:#0366d6;color:#fff;padding:.4rem .8rem;border-radius:6px;text-decoration:none}
+
+
+    .a {
+        width: 100px;
+        height: 100px;
+        background-color: #b31919;
+        transition: border-radius 200ms, background-color 200ms, transform 200ms;
+    }
+    .a:hover {
+        background-color: #000;
+        border-radius: 50%;
+        transform: scale(3);
+    }
+  </style>
+</head>
+<body>
+  <div class="back"><a href="index.html">返回首页</a></div>
+  <div class="stage" aria-hidden="true">
+    <!-- <div class="ball"></div> -->
+    <!-- 鼠标移到一个 100×100 的 div 上，颜色从红变黑，同时变成圆形，动画时间 200ms  -->
+    <div class="a"></div>
+  </div>
+</body>
+</html>

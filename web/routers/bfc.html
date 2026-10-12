@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>BFC 练习</title>
+        <link rel="stylesheet" href="../styles.css">
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            .test {
+                background-color: rgb(10, 118, 226);
+                width: 600px;
+
+                display: flow-root;
+            }
+            .parent-div {
+                background-color: rgba(255, 0, 0, 0.5);
+                width: 100%;
+                height: 100%;
+            }
+            .content {
+                margin-left:20px;
+                margin-bottom: 650px;
+            }
+        </style>
+    <body>
+        <div id="app">
+            <div class="container">
+                <aside id="sidebar">
+                    <ul>
+                        <li><a href="index.html">返回首页</a></li>
+                        <li><a href="animation.html">Animation</a></li>
+                        <li><a href="layout.html">Layout</a></li>
+                        <li><a href="baseline.html">Baseline Demo</a></li>
+                        <li><a href="bfc.html">BFC Demo</a></li>
+                    </ul>
+                </aside>
+                <main id="main-content">
+                    <h1>BFC 练习</h1>
+                    <p>通过 BFC（块级格式化上下文）来解决布局问题，例如清除浮动、避免外边距合并等。</p>
+
+                    <section>
+                        <h2>1. 清除浮动</h2>
+                        <div style="background: #eee; padding: 1rem;">
+                            <div style="float: left; width: 100px; height: 100px; background: #c22;"></div>
+                            <!-- 没有 BFC，父容器高度为0 -->
+                            <!-- 添加 BFC 后，父容器会包裹浮动元素 -->
+                            <div style="overflow: hidden; background: rgba(0,0,0,0.1); margin-top: 1rem;">父容器（有 BFC）</div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>外边距合并</h2>
+                        <div style="background: #eee; padding: 1rem;">
+                            <div style="margin-bottom: 20px; background: #c22;">外边距合并示例</div>
+                            <!-- 添加 BFC 后，外边距不会合并 -->
+                            <div style="overflow: hidden; background: rgba(0,0,0,0.1); margin-top: 20px;">父容器（有 BFC）</div>
+                        </div>
+                    </section>
+
+                    <section class="test">
+                        <div class="parent-div" style="display: flow-root;">
+                            <p class="content">这是一段测试文本，测试 margin 合并问题。蓝色是一个 BFC 容器。, 红色是父容器</p>
+                        </div>
+
+                    </section>
+                    <section class="test">
+                        <div class="parent-div">
+                            <p class="content">这是一段测试文本，测试 margin 合并问题。蓝色是一个 BFC 容器。, 红色是父容器</p>
+                        </div>
+
+                    </section>
+
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

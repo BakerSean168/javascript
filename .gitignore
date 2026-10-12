@@ -41,3 +41,6 @@ temp/
 # package-lock.json
 # yarn.lock
 scripts/test_100mb.pdf
+# Treat local proxy exports and binary test inputs as local-only files.
+/from_vmess_*.yaml
+/web/react/public/test.pdf
